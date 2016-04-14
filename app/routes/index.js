@@ -1,16 +1,16 @@
 'use strict';
 
 var path = process.cwd();
-var StampHandler = require(path + '/app/controllers/stampHandler.server.js');
-
-var stampHandler = new StampHandler();
+var HeaderHandler = require(path + '/app/controllers/headerHandler.server.js');
 
 module.exports = function (app) {
+	var headerHandler = new HeaderHandler();
+
 	app.route('/')
 		.get(function(req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 
-	app.route('/:stamp')
-		.get(stampHandler.parseStamp);
+	app.route('/api/whoami')
+		.get(headerHandler.requestHeader);
 };
